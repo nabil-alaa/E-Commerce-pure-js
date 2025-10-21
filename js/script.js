@@ -351,11 +351,11 @@ for (let i = 0; i < pagesCount; i++) {
 
 document.querySelectorAll(".pages li").forEach((li) => {
     li.onclick = function () {
-        drawData(
-            Number(li.getAttribute("start")),
-            Number(li.getAttribute("end"))
-        );
-        console.log(start, end);
+        start = Number(li.getAttribute("start"));
+        end = Number(li.getAttribute("end"));
+        drawData(start, end);
+        updateButtons();
+        updateActivePageByStart();
     };
 });
 console.log(start, end);
@@ -366,6 +366,7 @@ document.querySelector("#prev").onclick = function () {
         end -= itemsPerPage;
         drawData(start, end);
         updateButtons();
+        updateActivePageByStart();
         console.log(start, end);
     }
 };
@@ -374,7 +375,9 @@ document.querySelector("#next").onclick = function () {
         start += itemsPerPage;
         end += itemsPerPage;
         drawData(start, end);
+
         updateButtons();
+        updateActivePageByStart();
 
         console.log(start, end);
     }
@@ -384,6 +387,13 @@ function updateButtons() {
     document
         .querySelector("#next")
         .classList.toggle("disabled", end >= products.length);
+}
+
+function updateActivePageByStart() {
+    document.querySelectorAll(".pages li").forEach((li) => {
+        const s = Number(li.getAttribute("start"));
+        li.classList.toggle("active", s === start);
+    });
 }
 
 // -------------------------------------------------------------------------------------------------------------
