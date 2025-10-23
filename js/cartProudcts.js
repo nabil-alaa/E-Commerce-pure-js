@@ -3,10 +3,13 @@ let allProducts = document.querySelector(".products");
 let allfavorites = document.querySelector(".favorites");
 let totalPrice = document.querySelector(".total .totalPrice");
 
-if (proudectInCart) {
+if (JSON.parse(proudectInCart).length > 0) {
     drawProudectCart(JSON.parse(proudectInCart));
+} else {
+    allProducts.innerHTML = "Not Found";
 }
 
+// show product
 function drawProudectCart(products) {
     let y = products.map((item) => {
         let quantity = +localStorage.getItem(`quantity-${item.id}`) || 1;
@@ -44,6 +47,7 @@ function drawProudectCart(products) {
 
 // ---------------------------------------------------------------------------------------------
 
+// total
 let addItemStorage = localStorage.getItem("proudectInCart")
     ? JSON.parse(localStorage.getItem("proudectInCart"))
     : [];
@@ -56,7 +60,7 @@ if (addItemStorage) {
     addItemStorage.map((item) => {
         total += +item.salePrice * +localStorage.getItem(`quantity-${item.id}`);
     });
-    totalPrice.innerHTML = total / 2;
+    totalPrice.innerHTML = total;
 }
 
 function removeFromCart(id) {
@@ -74,8 +78,8 @@ function removeFromCart(id) {
             productItem.remove();
         }
         addItemStorage.forEach((item) => {
-            total += +item.salePrice * quantity;
-            // total += +item.salePrice * +(localStorage.getItem(`quantity-${item.id}`));
+            total +=
+                +item.salePrice * +localStorage.getItem(`quantity-${item.id}`);
         });
         totalPrice.innerHTML = total;
         localStorage.setItem("totalPrice", JSON.stringify(total));
@@ -329,61 +333,63 @@ let products = [
         salePrice: "2000",
         imageURL: "images/2.jpg",
     },
-    // {
-    //     id: 7,
-    //     title: "relme",
-    //     category: "Labtob",
-    //     color: "white",
-    //     price: "3120",
-    //     salePrice: "3000",
-    //     imageURL: "images/3.jpg",
-    // },
-    // {
-    //     id: 8,
-    //     title: "infinx",
-    //     category: "Labtob",
-    //     color: "Blue",
-    //     price: "4120",
-    //     salePrice: "4000",
-    //     imageURL: "images/4.jpg",
-    // },
-    // {
-    //     id: 9,
-    //     title: "oppo reno 7",
-    //     category: "Labtob",
-    //     color: "Black",
-    //     price: "1120",
-    //     salePrice: "1000",
-    //     imageURL: "images/1.jpg",
-    // },
-    // {
-    //     id: 10,
-    //     title: "Iphone 14",
-    //     category: "Air pods",
-    //     color: "gray",
-    //     price: "2120",
-    //     salePrice: "2000",
-    //     imageURL: "images/2.jpg",
-    // },
-    // {
-    //     id: 11,
-    //     title: "relme",
-    //     category: "Air pods",
-    //     color: "white",
-    //     price: "3120",
-    //     salePrice: "3000",
-    //     imageURL: "images/3.jpg",
-    // },
-    // {
-    //     id: 12,
-    //     title: "infinx",
-    //     category: "Air pods",
-    //     color: "Blue",
-    //     price: "4120",
-    //     salePrice: "4000",
-    //     imageURL: "images/4.jpg",
-    // },
+    {
+        id: 25,
+        title: "relme",
+        category: "Labtob",
+        color: "white",
+        price: "3120",
+        salePrice: "3000",
+        imageURL: "images/3.jpg",
+    },
+    {
+        id: 26,
+        title: "infinx",
+        category: "Labtob",
+        color: "Blue",
+        price: "4120",
+        salePrice: "4000",
+        imageURL: "images/4.jpg",
+    },
+    {
+        id: 27,
+        title: "oppo reno 7",
+        category: "Labtob",
+        color: "Black",
+        price: "1120",
+        salePrice: "1000",
+        imageURL: "images/1.jpg",
+    },
+    {
+        id: 28,
+        title: "Iphone 14",
+        category: "Air pods",
+        color: "gray",
+        price: "2120",
+        salePrice: "2000",
+        imageURL: "images/2.jpg",
+    },
+    {
+        id: 29,
+        title: "relme",
+        category: "Air pods",
+        color: "white",
+        price: "3120",
+        salePrice: "3000",
+        imageURL: "images/3.jpg",
+    },
+    {
+        id: 30,
+        title: "infinx",
+        category: "Air pods",
+        color: "Blue",
+        price: "4120",
+        salePrice: "4000",
+        imageURL: "images/4.jpg",
+    },
 ];
+
+// show favorite product
 function drawFavData() {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
@@ -441,6 +447,7 @@ function drawFavData() {
 drawFavData();
 // ------------------------------------------------------------
 
+// remove favorite product
 function removeFromFavorites(id) {
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     var heartIcon = document.getElementById(`fav-${id}`);

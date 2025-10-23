@@ -1,14 +1,11 @@
 // check connection
 let noInternet = document.querySelector(".noInternet");
 
-window.onload = function () {
-    if (window.navigator.onLine) {
-        noInternet.style.display = "none";
-    } else {
-        noInternet.style.display = "block";
-    }
-};
-
+window.addEventListener("load", function () {
+    window.navigator.onLine
+        ? (noInternet.style.display = "none")
+        : (noInternet.style.display = "block");
+});
 // -------------------------------------------------------------------------------------------------------------------
 
 let allProducts = document.querySelector(".products");
@@ -289,6 +286,7 @@ let products = [
     },
 ];
 
+// show products
 function drawData(start, end) {
     let pro = products.slice(start, end).map((item) => {
         let isFavorite = checkFavorite(item.id);
@@ -394,6 +392,7 @@ function updateActivePageByStart() {
 
 // -------------------------------------------------------------------------------------------------------------
 
+// total
 let badge = document.querySelector(".badge");
 let buyProudect = document.querySelector(".buyProudect");
 let totalPrice = document.querySelector(".total .totalPrice");
@@ -416,7 +415,7 @@ if (addItemStorage) {
             "inline-block";
         total += +item.salePrice * +localStorage.getItem(`quantity-${item.id}`);
     });
-    totalPrice.innerHTML = total / 2 + " EGP";
+    totalPrice.innerHTML = total + " EGP";
 
     if (addItemStorage.length != 0) {
         badge.style.display = "block";
@@ -475,8 +474,8 @@ function removeFromCart(id) {
 
         addItemStorage.forEach((item) => {
             drawBuyProudect(item);
-            total += +item.salePrice * quantity;
-            // total += +item.salePrice * +(localStorage.getItem(`quantity-${item.id}`));
+            total +=
+                +item.salePrice * +localStorage.getItem(`quantity-${item.id}`);
         });
 
         totalPrice.innerHTML = total + " EGP";
@@ -623,7 +622,7 @@ searchOption.addEventListener("change", function () {
     search.placeholder = `search by ${modeSearch}`;
     search.focus();
     search.value = "";
-    drawData();
+    drawData(start, end);
 });
 
 // -----
